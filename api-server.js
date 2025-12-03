@@ -28,7 +28,7 @@ app.post('/api/colorize', async (req, res) => {
   console.log('API Key available:', !!apiKey);
   
   if (!apiKey) {
-    console.error('API key not configured');
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
     return res.status(500).json({ error: 'API key not configured' });
   }
 
