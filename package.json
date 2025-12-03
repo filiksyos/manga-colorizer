@@ -1,8 +1,8 @@
 {
-  "name": "virtual-wardrobe",
+  "name": "manga-colorizer",
   "private": true,
   "version": "1.0.0",
-  "description": "A virtual wardrobe and styling app where users can upload photos of their clothes and mix and match them to create new outfits",
+  "description": "AI-powered manga colorization app using Gemini 2.5 Flash Image. Upload black & white manga pages and get them beautifully colorized!",
   "license": "MIT",
   "type": "module",
   "engines": {
