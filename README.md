@@ -1,5 +1,10 @@
 # 🎨 Manga Colorizer - Transform Your Manga
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-blue)](https://ai.google.dev/)
+
 A modern AI-powered manga colorization application powered by **Gemini 2.5 Flash Image** technology that lets you upload black & white manga pages and get them beautifully colorized. Upload your favorite manga panels and watch them come to life in full color using advanced AI image processing!
 
 ## 🖼️ Screenshot
