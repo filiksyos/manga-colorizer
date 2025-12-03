@@ -1,0 +1,17 @@
+# Netlify configuration for Manga Colorizer
+# Note: This is a full-stack app. For Netlify, you may need to adapt the backend.
+
+[build]
+  command = "npm run build:local"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Note: The /api/colorize endpoint needs to be set up as a serverless function
+# or use a separate backend service for production deployment on Netlify.
