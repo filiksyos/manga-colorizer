@@ -7,6 +7,16 @@
 
 A modern AI-powered manga colorization application powered by **Gemini 2.5 Flash Image** technology that lets you upload black & white manga pages and get them beautifully colorized. Upload your favorite manga panels and watch them come to life in full color using advanced AI image processing!
 
+
+## 🔗 Quick Links
+
+- [🚀 Getting Started](#-getting-started) - Setup instructions
+- [✨ Features](#-features) - What this app can do
+- [📝 Documentation](#-documentation) - Guides and API docs
+- [🤝 Contributing](#-contributing) - How to contribute
+- [❓ FAQ](#-faq) - Common questions
+- [🐛 Issues](https://github.com/filiksyos/manga-colorizer/issues) - Report bugs
+
 ## 🖼️ Screenshot
 
 ![Manga Colorizer Application](screenshots/manga-colorizer.png)
