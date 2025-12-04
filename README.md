@@ -1,6 +1,21 @@
 # 🎨 Manga Colorizer - Transform Your Manga
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%202.5%20Flash-blue)](https://ai.google.dev/)
+
 A modern AI-powered manga colorization application powered by **Gemini 2.5 Flash Image** technology that lets you upload black & white manga pages and get them beautifully colorized. Upload your favorite manga panels and watch them come to life in full color using advanced AI image processing!
+
+
+## 🔗 Quick Links
+
+- [🚀 Getting Started](#-getting-started) - Setup instructions
+- [✨ Features](#-features) - What this app can do
+- [📝 Documentation](#-documentation) - Guides and API docs
+- [🤝 Contributing](#-contributing) - How to contribute
+- [❓ FAQ](#-faq) - Common questions
+- [🐛 Issues](https://github.com/filiksyos/manga-colorizer/issues) - Report bugs
 
 ## 🖼️ Screenshot
 
@@ -109,6 +124,38 @@ manga-colorizer/
 1. **Upload Manga**: Click the upload area or drag & drop a black & white manga image
 2. **Wait for AI**: The Gemini 2.5 Flash Image model processes your manga
 3. **Preview Result**: See your colorized manga in the preview area
+
+## 📝 Documentation
+
+Comprehensive guides and documentation:
+
+- **[Setup Guide](SETUP.md)** - Detailed setup instructions for beginners
+- **[API Documentation](docs/API.md)** - Backend API and integration details
+- **[Architecture](docs/ARCHITECTURE.md)** - Technical architecture and design
+- **[FAQ](FAQ.md)** - Frequently asked questions
+- **[Changelog](CHANGELOG.md)** - Version history and updates
+
+## ❓ FAQ
+
+Common questions:
+
+**Q: Is it really free?**  
+A: Yes! Both the app and the Gemini API have free tiers.
+
+**Q: Do I need to create an account?**  
+A: No! Start colorizing immediately without any sign-up.
+
+**Q: Are my images stored anywhere?**  
+A: No. The app is stateless and doesn't save any data.
+
+**Q: What image formats are supported?**  
+A: JPG, PNG, and WebP files under 10MB.
+
+**Q: How long does colorization take?**  
+A: Usually 5-15 seconds depending on image size and complexity.
+
+See the full [FAQ](FAQ.md) for more questions and answers.
+
 4. **Download**: Save your colorized manga to your device
 5. **Upload More**: Colorize as many manga pages as you want!
 
