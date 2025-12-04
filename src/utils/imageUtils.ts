@@ -65,29 +65,120 @@ export const colorizeImage = async (imageData: string): Promise<string> => {
       body: JSON.stringify(requestBody),
     });
 
+    // Check response status and content before parsing
+    const contentType = response.headers.get('content-type');
+    const responseText = await response.text();
+    
     if (!response.ok) {
-      const errorData = await response.json();
+      // Try to parse error response, but handle empty/invalid JSON
+      let errorData;
+      if (responseText && contentType?.includes('application/json')) {
+        try {
+          errorData = JSON.parse(responseText);
+        } catch (parseError) {
+          console.error('Failed to parse error response:', parseError);
+          throw new Error(`API error (${response.status}): ${responseText || 'Empty response'}`);
+        }
+      } else {
+        throw new Error(`API error (${response.status}): ${responseText || 'Empty response'}`);
+      }
       console.error('API Error:', errorData);
       throw new Error(errorData.error || 'Failed to colorize image');
     }
 
-    const data = await response.json();
+    // Parse successful response
+    if (!responseText) {
+      throw new Error('Empty response from server');
+    }
+    
+    if (!contentType?.includes('application/json')) {
+      console.error('Unexpected content type:', contentType);
+      console.error('Response text:', responseText.substring(0, 200));
+      throw new Error('Server returned non-JSON response');
+    }
+    
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Failed to parse JSON response:', parseError);
+      console.error('Response text:', responseText.substring(0, 500));
+      throw new Error('Invalid JSON response from server');
+    }
     console.log('API Response received');
+    console.log('Response structure:', JSON.stringify(data, null, 2).substring(0, 1000));
 
     // Extract the generated image from response
-    if (data.candidates && data.candidates[0]?.content?.parts) {
-      const parts = data.candidates[0].content.parts;
+    // Gemini API returns camelCase (inlineData, mimeType) not snake_case (inline_data, mime_type)
+    let imagePart = null;
+    let responseImageData = null;
+    let responseMimeType = 'image/png';
+    
+    if (data.candidates && data.candidates[0]) {
+      const candidate = data.candidates[0];
       
-      // Look for inline_data in the response
-      const imagePart = parts.find((part: any) => part.inline_data);
+      // Check if content.parts exists
+      if (candidate.content?.parts) {
+        const parts = candidate.content.parts;
+        
+        // Try camelCase first (inlineData)
+        imagePart = parts.find((part: any) => part.inlineData || part.inline_data);
+        
+        if (imagePart) {
+          // Handle both camelCase and snake_case
+          const inlineData = imagePart.inlineData || imagePart.inline_data;
+          if (inlineData) {
+            responseImageData = inlineData.data;
+            responseMimeType = inlineData.mimeType || inlineData.mime_type || 'image/png';
+          }
+        }
+      }
       
-      if (imagePart?.inline_data?.data) {
-        const { mime_type, data: imageBase64 } = imagePart.inline_data;
-        return `data:${mime_type};base64,${imageBase64}`;
+      // Also check if inlineData/inline_data is directly in the candidate
+      if (!responseImageData && (candidate.inlineData || candidate.inline_data)) {
+        const inlineData = candidate.inlineData || candidate.inline_data;
+        responseImageData = inlineData.data;
+        responseMimeType = inlineData.mimeType || inlineData.mime_type || 'image/png';
+      }
+      
+      // Check if parts array contains inlineData/inline_data directly
+      if (!responseImageData && Array.isArray(candidate.parts)) {
+        imagePart = candidate.parts.find((part: any) => part.inlineData || part.inline_data);
+        if (imagePart) {
+          const inlineData = imagePart.inlineData || imagePart.inline_data;
+          responseImageData = inlineData.data;
+          responseMimeType = inlineData.mimeType || inlineData.mime_type || 'image/png';
+        }
       }
     }
+    
+    // Check alternative structure: data.parts directly
+    if (!responseImageData && data.parts) {
+      imagePart = Array.isArray(data.parts) 
+        ? data.parts.find((part: any) => part.inlineData || part.inline_data)
+        : (data.parts.inlineData || data.parts.inline_data) ? data.parts : null;
+      
+      if (imagePart) {
+        const inlineData = imagePart.inlineData || imagePart.inline_data;
+        responseImageData = inlineData?.data;
+        responseMimeType = inlineData?.mimeType || inlineData?.mime_type || 'image/png';
+      }
+    }
+    
+    // Check if inlineData/inline_data is at root level
+    if (!responseImageData && (data.inlineData || data.inline_data)) {
+      const inlineData = data.inlineData || data.inline_data;
+      responseImageData = inlineData.data;
+      responseMimeType = inlineData.mimeType || inlineData.mime_type || 'image/png';
+    }
+    
+    if (responseImageData) {
+      return `data:${responseMimeType};base64,${responseImageData}`;
+    }
 
-    throw new Error('No image data in response');
+    // Log the full response structure for debugging
+    console.error('Full response structure:', JSON.stringify(data, null, 2));
+    throw new Error('No image data in response. Check console for response structure.');
   } catch (error) {
     console.error('Colorization error:', error);
     throw error instanceof Error ? error : new Error('Failed to colorize manga');
