@@ -37,7 +37,7 @@ export const colorizeImage = async (imageData: string): Promise<string> => {
       contents: [{
         parts: [
           {
-            text: "Colorize this black and white manga image. Add vibrant, anime-style colors while preserving all the original line art, details, and composition. Use appropriate colors for skin tones, hair, clothing, and backgrounds. Make it look like a professionally colored manga page. Return ONLY the colorized image without any text or explanations."
+            text: "You are an expert anime colorist. Colorize this entire black and white manga image with vibrant, anime-style colors. CRITICAL REQUIREMENTS: 1) Color EVERYTHING possible - characters (skin, hair, eyes, clothing, accessories), backgrounds (sky, buildings, nature, objects), effects (light, shadows, auras), and all details. Leave NO areas uncolored unless they are intentionally white space. 2) Use rich, saturated anime-style colors with smooth gradients and cel-shading. Apply anime-typical color palettes: vibrant hair colors, expressive eye colors, detailed clothing patterns, atmospheric backgrounds. 3) Add depth with proper shading, highlights, and color variation. Use soft gradients for skin, dramatic lighting effects, and colorful atmospheric backgrounds typical of anime art. 4) Preserve ALL original line art perfectly - do not modify, remove, or alter any lines. 5) Make it look like a high-quality anime production still or professionally colored manga page with full color coverage. Return ONLY the fully colorized image without any text or explanations."
           },
           {
             inline_data: {
